@@ -3,12 +3,13 @@ package gwent
 
 
 /** A class representing a unit card
- * The card has two properties (For now): a name and it's strength
+ * The card has three properties (For now): a name and it's strength two times
  *
  * @param nombre The name of the card
- * @param fuerza The strength of the card
+ * @param fuerza The current strength of the card
+ * @param fuerzaOriginal The original strength of the card
  *
- * @constructor Creates a unit card with the specified name and strength
+ * @constructor Creates a unit card with the specified name and strengths
  *
  * @example
  * {{{
@@ -21,26 +22,27 @@ package gwent
  */
 
 
-class cartaUnidad (var nombre: String, var fuerza: Int)
+class cartaUnidad (var nombre: String, var fuerza: Int) {
+  private val fuerzaOriginal: Int = fuerza
+/** Returns the card current strength*/
+  def getFuerza(): Int = {
+    this.fuerza
+  }
+/** Makes the card strength equal to it's original strength */
+  def restablecer(): Unit = {
+    this.fuerza = this.fuerzaOriginal
+  }
+/** Increases the card strength by 1 */
+  def aumentarFuerza(): Unit = {
+    this.fuerza += 1
+  }
+/** Decreases the card strength to 1 */
+  def disminuirFuerza(): Unit = {
+    this.fuerza = 1
+  }
+}
 
 
 
-/** A class representing a weather card
- * The card has one property (For now): a name
- *
- * @param nombre The name of the card
- *
- * @constructor Creates a weather card with the specified name
- *
- * @example
- * {{{
- * val clima = new cartaClima("Monsoon")
- * }}}
- *
- * @author Raul Aliste
- * @since 1.0.0
- * @version 1.0.0
- */
 
 
-class cartaClima (var nombre: String) 

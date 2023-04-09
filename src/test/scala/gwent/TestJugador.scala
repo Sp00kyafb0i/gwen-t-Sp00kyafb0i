@@ -4,9 +4,7 @@ package gwent
 import munit.FunSuite
 
 
-/**
- *
- */
+
 
 
 class TestJugador extends FunSuite {
@@ -23,6 +21,11 @@ class TestJugador extends FunSuite {
   }
   test("El jugador debe tener 0 o mas gemas") {
     assert(player.gemas >= 0)
+  }
+
+  test("El jugador debe poder perder 1 gema") {
+    player.quitarGema()
+    assert(player.gemas == 1)
   }
 
 }

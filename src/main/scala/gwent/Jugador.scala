@@ -20,4 +20,10 @@ package gwent
  */
 
 
-class Jugador (var nombre: String, var gemas: Int)
+class Jugador (var nombre: String, var gemas: Int) {
+
+  /** Decreases the player gems by 1 */
+  def quitarGema(): Unit = {
+    this.gemas -= 1
+  }
+}

@@ -1,6 +1,7 @@
 package cl.uchile.dcc
 package gwent
 
+import cl.uchile.dcc.gwent.Cartas.cartaClima
 import munit.FunSuite
 
 class cartaClimaTest extends FunSuite {
@@ -23,7 +24,7 @@ class cartaClimaTest extends FunSuite {
   }
 
   test("A weather card must be able to return it's name") {
-    assertEquals(carta.getNombre(), nombre)
+    assertEquals(carta3.getNombre(), nombre2)
   }
 
   test("A weather card must be a cartaClima class") {

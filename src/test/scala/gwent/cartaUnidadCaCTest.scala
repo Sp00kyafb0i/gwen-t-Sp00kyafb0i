@@ -1,6 +1,7 @@
 package cl.uchile.dcc
 package gwent
 
+import cl.uchile.dcc.gwent.Cartas.cartaUnidadCaC
 import munit.FunSuite
 
 class cartaUnidadCaCTest extends FunSuite {
@@ -53,6 +54,10 @@ class cartaUnidadCaCTest extends FunSuite {
 
   test("A card must be able to return it's original strength") {
     assertEquals(carta.getFuerzaOriginal(), fuerza)
+  }
+
+  test("A card should be able to return it's name") {
+    assertEquals(carta.getNombre(), nombre)
   }
 
   test("Two melee cards with the same name and strength should be the same") {

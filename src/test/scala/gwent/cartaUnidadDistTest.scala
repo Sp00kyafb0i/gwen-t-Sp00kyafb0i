@@ -1,6 +1,7 @@
 package cl.uchile.dcc
 package gwent
 
+import cl.uchile.dcc.gwent.Cartas.cartaUnidadDist
 import munit.FunSuite
 
 class cartaUnidadDistTest extends FunSuite {
@@ -60,6 +61,9 @@ class cartaUnidadDistTest extends FunSuite {
     assertNotEquals(carta, carta3)
     assertEquals(carta.hashCode(), carta2.hashCode())
     assertNotEquals(carta.hashCode(), carta3.hashCode())
+  }
+  test("A card should be able to return it's name") {
+    assertEquals(carta.getNombre(), nombre)
   }
 
   test("A ranged card must be a cartaUnidadDist class") {

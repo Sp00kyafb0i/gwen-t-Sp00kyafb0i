@@ -1,5 +1,5 @@
 package cl.uchile.dcc
-package gwent
+package gwent.Cartas
 
 /** An abstract class representing an unit card
  * The card has three properties: a name and it's strength two times, one is used to store the card original strength and the other stores the card's current strength
@@ -7,16 +7,18 @@ package gwent
  * @param nombre The name of the card
  * @param fuerza The current strength of the card
  * @param fuerzaOriginal The original strength of the card
- *
  * @constructor Creates a unit card with the specified name and strengths
- *
- *
  * @author Raul Aliste
  * @since 1.0.0
  * @version 1.0.0
  */
-abstract class abstractCartaUnidad(nombre: String, var fuerza: Int) extends abstractCarta(nombre) {
+abstract class abstractCartaUnidad(var nombre: String, var fuerza: Int)  {
   private val fuerzaOriginal: Int = fuerza
+
+  def getNombre(): String = {
+    this.nombre
+  }
+
   /** Returns the card current strength*/
   def getFuerza(): Int = {
     this.fuerza

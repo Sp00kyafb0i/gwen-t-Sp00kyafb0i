@@ -1,5 +1,5 @@
 package cl.uchile.dcc
-package gwent
+package gwent.Cartas
 
 import java.util.Objects
 
@@ -16,14 +16,15 @@ import java.util.Objects
  * @since 1.0.1
  * @version 1.0.1
  */
-class cartaClima(nombre: String) extends abstractCarta(nombre) with Equals {
+class cartaClima(nombre: String, fuerza: Int = 0) extends abstractCartaUnidad(nombre, fuerza) with Equals {
+
 
   override def canEqual(that: Any): Boolean = that.isInstanceOf[cartaClima]
 
   override def equals(that: Any): Boolean = {
     if (canEqual(that)) {
       val other = that.asInstanceOf[cartaClima]
-      nombre == other.nombre
+      nombre == other.getNombre() && fuerza == other.getFuerza()
     } else {
       false
     }
@@ -31,6 +32,6 @@ class cartaClima(nombre: String) extends abstractCarta(nombre) with Equals {
 
 
   override def hashCode: Int = {
-    Objects.hash(classOf[cartaClima], nombre)
+    Objects.hash(classOf[cartaClima], nombre, fuerza)
   }
 }

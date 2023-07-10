@@ -2,9 +2,9 @@ package cl.uchile.dcc
 package gwent
 
 import cl.uchile.dcc.gwent.Cartas.{abstractCartaUnidad, cartaClima, cartaUnidadAsed, cartaUnidadCaC, cartaUnidadDist}
-import cl.uchile.dcc.gwent.Tablero.{Seccion, Tablero}
+import cl.uchile.dcc.gwent.Tablero.{Seccion, SeccionUnidades, Tablero}
 import munit.FunSuite
-import gwent.States._
+import gwent.States.*
 
 class GameControllerTest extends FunSuite{
 
@@ -16,11 +16,12 @@ class GameControllerTest extends FunSuite{
   val gemas: Int = 2
   val nombre2: String = "Test2"
   val gemas2: Int = 3
+  val falso: Boolean = false
 
-  var carta1 = new cartaUnidadCaC("Geralt", 3)
-  var carta2 = new cartaUnidadAsed("Trebuchet", 4)
-  var carta3 = new cartaUnidadDist("Yennefer", 3)
-  var carta4 = new cartaClima("Sunny day")
+  var carta1 = new cartaUnidadCaC("Geralt", 3, falso, falso)
+  var carta2 = new cartaUnidadAsed("Trebuchet", 4, falso, falso)
+  var carta3 = new cartaUnidadDist("Yennefer", 3, falso, falso)
+  var carta4 = new cartaClima("Sunny day", falso, falso, falso)
 
   val sectionCaC: Seccion = new Seccion(List(carta1))
   val sectionAsed: Seccion = new Seccion(List(carta2))
@@ -38,7 +39,7 @@ class GameControllerTest extends FunSuite{
 
   val tablero1: Tablero = new Tablero
   val tablero2: Tablero = new Tablero
-  tablero2.seccionCac = new Seccion(List(carta1))
+  tablero2.seccionCac = new SeccionUnidades(List(carta1))
 
   var player = new Jugador(nombre, gemas, mano, mazo1, tablero1)
   var player2 = new Jugador(nombre, gemas, mano, mazo1, tablero1)

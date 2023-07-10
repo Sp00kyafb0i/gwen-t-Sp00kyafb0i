@@ -24,4 +24,8 @@ class GameStateTest extends FunSuite {
     Assert.assertThrows(classOf[Exception], () => gameState.toTurnoJugador())
   }
 
+  test("A gamestate can be created") {
+    assertEquals(new GameState(context1), gameState)
+  }
+
 }

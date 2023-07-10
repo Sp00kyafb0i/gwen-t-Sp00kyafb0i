@@ -9,23 +9,24 @@ class cartaUnidadAsedTest extends FunSuite {
   val nombre2 = "Test2"
   val fuerza = 3
   val fuerza2 = 4
+  val falso = false
 
   var carta: cartaUnidadAsed = _
   var carta2: cartaUnidadAsed = _
   var carta3: cartaUnidadAsed = _
 
   override def beforeEach(context: BeforeEach): Unit = {
-    carta = new cartaUnidadAsed(nombre, fuerza)
-    carta2 = new cartaUnidadAsed(nombre, fuerza)
-    carta3 = new cartaUnidadAsed(nombre2, fuerza2)
+    carta = new cartaUnidadAsed(nombre, fuerza, falso, falso)
+    carta2 = new cartaUnidadAsed(nombre, fuerza, falso, falso)
+    carta3 = new cartaUnidadAsed(nombre2, fuerza2, falso, falso)
   }
 
   test("A melee unit card can be created with a name and a strength") {
-    assertEquals(new cartaUnidadAsed(nombre, fuerza), carta)
+    assertEquals(new cartaUnidadAsed(nombre, fuerza, falso, falso), carta)
   }
 
   test("The hash code of a cartaUnidadCaC i consistent with equals") {
-    assertEquals(new cartaUnidadAsed(nombre, fuerza).##, carta.##)
+    assertEquals(new cartaUnidadAsed(nombre, fuerza, falso, falso).##, carta.##)
   }
 
   test("A card's strength must be larger or equal to 0") {

@@ -1,8 +1,10 @@
 package cl.uchile.dcc
 package gwent
 
-import gwent.Cartas._
-import gwent.Tablero._
+import gwent.Cartas.*
+import gwent.Tablero.*
+
+import sun.jvm.hotspot.utilities.Observer
 
 import java.util.Objects
 
@@ -24,15 +26,46 @@ import java.util.Objects
  *
  * @author Raul Aliste
  * @since 1.0.0
- * @version 1.0.2
+ * @version 1.0.3
  */
 
 
-class Jugador (val nombre: String, var gemas: Int, private var _mano: List[abstractCartaUnidad], private var _mazo: List[abstractCartaUnidad], private var tablero: Tablero) extends Equals {
+class Jugador (val nombre: String, var gemas: Int, private var _mano: List[carta], private var _mazo: List[carta], private var tablero: Tablero) extends Equals {
 
+  
+  var observers: List[observerJugador] = List()
+
+
+  /** Registers an observer */
+  def registrarObserver(observer: observerJugador): Unit = {
+    observers = observer :: observers
+  }
+
+  /** Deletes an observer */
+  def eliminarObserver(observer: observerJugador): Unit = {
+    observers = observers.filterNot(_ == observer)
+  }
+
+  /** Returns the list of observers */
+  def getObservers: List[observerJugador] = observers
+
+
+  /** Returns the number of gems */
+  def getGemas(): Int = {
+    this.gemas
+  }
+
+
+  /** Notifies when the player has 0 gems */
+  def notificarSinGemas(): Unit = {
+    observers.foreach(_.sinGemas(this))
+  }
+  
   /** Decreases the player gems by 1 */
   def quitarGema(): Unit = {
     this.gemas -= 1
+    notificarSinGemas()
+
   }
   /** Returns the player's name */
   def getNombre(): String = {
@@ -40,15 +73,15 @@ class Jugador (val nombre: String, var gemas: Int, private var _mano: List[abstr
   }
 
   /** Accessor method for the player's hand */
-  def mano: List[abstractCartaUnidad] = _mano
+  def mano: List[carta] = _mano
 
   /** Accessor method for the player's deck */
-  def mazo: List[abstractCartaUnidad] = _mazo
+  def mazo: List[carta] = _mazo
 
-  def getTablero: Tablero = tablero
+  def getTablero: Tablero = this.tablero
 
   /** Draws a card from the deck and returns the card */
-  def sacarCarta(): abstractCartaUnidad = {
+  def sacarCarta(): carta = {
     val carta = mazo.head
     _mazo = mazo.tail
     _mano = carta :: mano
@@ -63,10 +96,12 @@ class Jugador (val nombre: String, var gemas: Int, private var _mano: List[abstr
 
   /** Plays a card from the player's hand into the board, removing it from the hand, it actually creates a new list of cards without the one
    * that was played */
-  def play(carta: abstractCartaUnidad, tablero: Tablero): Unit ={
+  def play(carta: carta, tablero: Tablero): Unit ={
     tablero.play(carta)
     _mano = mano.filterNot(_ eq carta)
   }
+
+
 
   
 

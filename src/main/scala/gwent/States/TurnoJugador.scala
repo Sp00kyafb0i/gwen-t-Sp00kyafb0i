@@ -3,14 +3,28 @@ package gwent.States
 
 import java.util.Objects
 
+
+/** A class representing a game state
+ *
+ * @param context Receives the game controller
+ *
+ * @author Raul Aliste
+ * @since 1.0.2
+ * @version 1.0.3
+ */
+
 class TurnoJugador(context: GameController) extends GameState(context) with Equals{
 
+  
+  /** Changes state to SeleccionarCarta */
   override def toSeleccionarCarta(): Unit =
     context.state = new SeleccionarCarta(context)
 
+  /** Changes state to TurnoCpu */
   override def toTurnoCpu(): Unit =
     context.state = new TurnoCpu(context)
 
+  /** Changes state to FinalRonda */
   override def toFinalRonda(): Unit =
     context.state = new FinalRonda(context)
 

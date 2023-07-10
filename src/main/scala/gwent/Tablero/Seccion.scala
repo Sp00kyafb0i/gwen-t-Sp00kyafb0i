@@ -8,45 +8,32 @@ import java.util.Objects
 
 
 
-/** A class representing a section of a gwent boards
- * The Seccion class has one property: A list of unit cards
+/** A class representing a section of a gwent board
+ * The Seccion class has one property: A list of cards
  *
- * @param cartas A list of unit cards representing the cards on this section of the board
+ * @param cartas A list of cards representing the cards on this section of the board
  *
  *
- * @constructor Creates a section object with the specified list of unit cards
+ * @constructor Creates a section object with the specified list of cards
  *
  * @example
  * {{{
- * val section = new Seccion(List(unit card1, unit card2))
+ * val section = new Seccion(List(card1, card2))
  * }}}
  *
  * @author Raul Aliste
  * @since 1.0.2
- * @version 1.0.2
+ * @version 1.0.3
  */
 
 
-class Seccion( var cartas: List[abstractCartaUnidad]) extends Equals{
+class Seccion( var cartas: List[carta]) extends Equals{
 
 
+  /** Returns the list of cards of this section */
+  def getLista(): List[carta] = this.cartas
 
-  /** This method returns the sum of the strength of the cards in the section */
-  def sumaFuerza: Int = {
-    var resultado = 0
-    cartas.foreach(resultado += _.getFuerza())
-    resultado
-  }
   
-  /** This method turns the strength of all the cards in the section to 1 */
-  def malClima(): Unit = {
-    cartas.foreach(_.disminuirFuerza())
-  }
-  
-  /** This method turns the strength of all the cards in the section to their original strength */
-  def buenClima(): Unit = {
-    cartas.foreach(_.restablecer())
-  }
 
   override def canEqual(that: Any): Boolean = that.isInstanceOf[Seccion]
 

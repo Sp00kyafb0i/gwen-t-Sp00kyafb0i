@@ -7,20 +7,22 @@ import munit.FunSuite
 class cartaClimaTest extends FunSuite {
   val nombre: String = "Test"
   val nombre2: String = "Test2"
+  
+  var falso: Boolean = false
 
   var carta: cartaClima = _
   var carta2: cartaClima = _
   var carta3: cartaClima = _
 
   override def beforeEach(context: BeforeEach): Unit = {
-    carta = new cartaClima(nombre)
-    carta2 = new cartaClima(nombre)
-    carta3 = new cartaClima(nombre2)
+    carta = new cartaClima(nombre, falso, falso, falso)
+    carta2 = new cartaClima(nombre, falso, falso, falso)
+    carta3 = new cartaClima(nombre2, falso, falso, falso)
   }
 
 
   test("A weather card can be created with a name") {
-    assertEquals(new cartaClima(nombre), carta)
+    assertEquals(new cartaClima(nombre, falso, falso, falso), carta)
   }
 
   test("A weather card must be able to return it's name") {

@@ -1,7 +1,7 @@
 package cl.uchile.dcc
 package gwent
 
-import cl.uchile.dcc.gwent.Cartas.{cartaUnidadAsed, cartaUnidadCaC, cartaUnidadDist, cartaClima, abstractCartaUnidad}
+import cl.uchile.dcc.gwent.Cartas.{cartaUnidadAsed, cartaUnidadCaC, cartaUnidadDist, cartaClima, abstractCartaUnidad, carta}
 import cl.uchile.dcc.gwent.Jugador
 import cl.uchile.dcc.gwent.Tablero._
 import munit.FunSuite
@@ -12,6 +12,7 @@ class JugadorTest extends FunSuite {
   val gemas: Int = 2
   val nombre2: String = "Test2"
   val gemas2: Int = 3
+  val falso: Boolean = false
 
 
   var player: Jugador = _
@@ -21,28 +22,30 @@ class JugadorTest extends FunSuite {
   var player5: Jugador = _
   var player6: Jugador = _
 
-  var carta1 = new cartaUnidadCaC("Geralt", 3)
-  var carta2 = new cartaUnidadAsed("Trebuchet", 4)
-  var carta3 = new cartaUnidadDist("Yennefer", 3)
-  var carta4 = new cartaClima("Sunny day")
+  var carta1 = new cartaUnidadCaC("Geralt", 3, falso, falso)
+  var carta2 = new cartaUnidadAsed("Trebuchet", 4, falso, falso)
+  var carta3 = new cartaUnidadDist("Yennefer", 3, falso, falso)
+  var carta4 = new cartaClima("Sunny day", falso, falso, falso)
 
-  val sectionCaC: Seccion = new Seccion(List(carta1))
-  val sectionAsed: Seccion = new Seccion(List(carta2))
-  val sectionDist: Seccion = new Seccion(List(carta3))
+  val sectionCaC: SeccionUnidades = new SeccionUnidades(List(carta1))
+  val sectionAsed: SeccionUnidades = new SeccionUnidades(List(carta2))
+  val sectionDist: SeccionUnidades = new SeccionUnidades(List(carta3))
 
-  val sectionCaC2: Seccion = new Seccion(List(carta1, carta1))
+  val sectionCaC2: SeccionUnidades = new SeccionUnidades(List(carta1, carta1))
 
-  var mazo1: List[abstractCartaUnidad] = List(carta1, carta2, carta3)
-  var mazo2: List[abstractCartaUnidad] = List(carta2, carta3)
-  var mazo3: List[abstractCartaUnidad] = List(carta1, carta2)
-  var mazo4: List[abstractCartaUnidad] = List(carta2, carta1)
+  var mazo1: List[carta] = List(carta1, carta2, carta3)
+  var mazo2: List[carta] = List(carta2, carta3)
+  var mazo3: List[carta] = List(carta1, carta2)
+  var mazo4: List[carta] = List(carta2, carta1)
 
-  var mano: List[abstractCartaUnidad] = List()
-  var mano2: List[abstractCartaUnidad] = List(carta1)
+  var mano: List[carta] = List()
+  var mano2: List[carta] = List(carta1)
 
   val tablero1: Tablero = new Tablero
   val tablero2: Tablero = new Tablero
-  tablero2.seccionCac = new Seccion(List(carta1))
+  tablero2.seccionCac = new SeccionUnidades(List(carta1))
+
+  var observer: observerGemas = _
 
 
   override def beforeEach(context: BeforeEach): Unit = {
@@ -52,6 +55,8 @@ class JugadorTest extends FunSuite {
     player4 = new Jugador(nombre2, gemas, mano, mazo4, tablero1)
     player5 = new Jugador(nombre, gemas2, mano, mano, tablero1)
     player6 = new Jugador(nombre2, gemas2, mano, mazo4, tablero1)
+    observer = new observerGemas
+    player.registrarObserver(observer)
   }
 
 
@@ -65,6 +70,11 @@ class JugadorTest extends FunSuite {
     assertNotEquals(player.mano, mano)
     assertEquals(player.mano, mano2)
     assertEquals(player, player2)
+  }
+
+  test("A player should be able to remove an observer") {
+    player.eliminarObserver(observer)
+    assertEquals(player.getObservers, List())
   }
 
   test("A player should be able to shuffle their deck") {
@@ -82,7 +92,7 @@ class JugadorTest extends FunSuite {
   test("A player should be able to play a card") {
     player.sacarCarta()
     assertEquals(player.mano, mano2)
-    var carta: abstractCartaUnidad = player.mano.apply(0)
+    var carta: carta = player.mano.apply(0)
     var tablero: Tablero = player.getTablero
     print(carta.getNombre())
     player.play(carta, tablero)

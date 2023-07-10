@@ -1,3 +1,7 @@
+Diagrama estados:
+https://github.com/Sp00kyafb0i/docs/blob/6032ee556087f07e9e6490e25c081ff88dc7bf82/diagrama-estados.png
+
+
 # Gwen't
 
 ![http://creativecommons.org/licenses/by/4.0/](https://i.creativecommons.org/l/by/4.0/88x31.png)

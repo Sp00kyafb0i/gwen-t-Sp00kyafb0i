@@ -13,4 +13,4 @@ This project's goal is to create a (simplified) clone of the
 
 ---
 
-**The rest of the documentation is left for the users of this template to complete**
+This repository is an attempt to recreate the card game "Gwent" from "The Witcher" videogame series by CD PROJEKT RED. It is made in Scala 3 but it is not finished as it was a project made for a class and we didn't have enough time to finish it.
